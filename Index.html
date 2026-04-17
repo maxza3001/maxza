@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แนวข้อสอบราชการ</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 50:'#f0f4ff',100:'#dbe4ff',200:'#b6c9ff',300:'#8aa8ff',400:'#5c82f5',500:'#3b5fe0',600:'#1e3a8a',700:'#162d6e',800:'#0f2052',900:'#0a1636' },
+        sky: { 50:'#f0f9ff',100:'#e0f2fe',200:'#bae6fd',300:'#7dd3fc',400:'#38bdf8',500:'#0ea5e9' },
+        slate: { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',300:'#cbd5e1',400:'#94a3b8',500:'#64748b',600:'#475569',700:'#334155',800:'#1e293b',900:'#0f172a' }
+      },
+      fontFamily: {
+        thai: ['"IBM Plex Sans Thai"','sans-serif'],
+        display: ['"Space Grotesk"','"IBM Plex Sans Thai"','sans-serif']
+      }
+    }
+  }
+}
+</script>
+  <style>
+html,body{height:100%;margin:0;font-family:'IBM Plex Sans Thai',sans-serif}
+.page{display:none}.page.active{display:block}
+.fade-in{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.stagger-1{animation-delay:.05s}.stagger-2{animation-delay:.1s}.stagger-3{animation-delay:.15s}.stagger-4{animation-delay:.2s}.stagger-5{animation-delay:.25s}
+.card-hover{transition:all .2s ease}.card-hover:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(30,58,138,.12)}
+.choice-btn{transition:all .15s ease}.choice-btn:hover{border-color:#3b5fe0;background:#f0f4ff}
+.choice-btn.selected{border-color:#3b5fe0;background:#dbe4ff;font-weight:500}
+.choice-btn.correct{border-color:#16a34a;background:#dcfce7}.choice-btn.incorrect{border-color:#dc2626;background:#fef2f2}
+.progress-fill{transition:width .4s ease}
+.nav-item{transition:all .15s ease}.nav-item.active-nav{color:#1e3a8a;font-weight:600}
+.nav-item.active-nav svg{stroke:#1e3a8a}
+.pulse{animation:pulse 2s infinite}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.stat-counter{font-variant-numeric:tabular-nums}
+.glass{background:rgba(255,255,255,.85);backdrop-filter:blur(12px)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:4px}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-slate-50 text-slate-800">
+  <div id="app" class="h-full w-full overflow-auto"><!-- ========== TOP NAV ========== -->
+   <header id="topNav" class="sticky top-0 z-50 glass border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between"><button onclick="navigateTo('home')" class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-navy-600 flex items-center justify-center"><i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
+      </div><span class="font-display font-bold text-navy-600 text-lg hidden sm:block" id="brandName">RajExam</span> </button>
+     <nav class="flex items-center gap-1"><button onclick="navigateTo('home')" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100" data-nav="home">หน้าแรก</button> <button onclick="navigateTo('categories')" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100" data-nav="categories">หมวดวิชา</button> <button onclick="navigateTo('dashboard')" class="nav-btn px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100" data-nav="dashboard">Dashboard</button> <button onclick="navigateTo('dashboard')" class="ml-2 w-8 h-8 rounded-full bg-navy-600 text-white flex items-center justify-center text-sm font-semibold">ก</button>
+     </nav>
+    </div>
+   </header><!-- ========== PAGE 1: HOME ========== -->
+   <div id="page-home" class="page active"><!-- Hero -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-navy-600 via-navy-700 to-navy-900 text-white">
+     <div class="absolute inset-0 opacity-10">
+      <svg width="100%" height="100%">
+       <defs>
+        <pattern id="grid" width="40" height="40" patternunits="userSpaceOnUse">
+         <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5" />
+        </pattern>
+       </defs><rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+     </div>
+     <div class="relative max-w-5xl mx-auto px-4 py-16 sm:py-24 text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 text-sm"><i data-lucide="sparkles" class="w-4 h-4"></i> <span>แพลตฟอร์มอันดับ 1 สำหรับเตรียมสอบราชการ</span>
+      </div>
+      <h1 id="heroTitle" class="font-display text-3xl sm:text-5xl font-bold mb-4 leading-tight">เตรียมสอบราชการ<br>
+       อย่างมั่นใจ</h1>
+      <p id="heroSubtitle" class="text-lg sm:text-xl text-sky-200 mb-8 max-w-2xl mx-auto">รวมแนวข้อสอบราชการกว่า 10,000 ข้อ พร้อมเฉลยละเอียด อัพเดตตามหลักสูตรล่าสุด</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center"><button onclick="navigateTo('categories')" id="ctaBtn" class="pulse px-8 py-4 bg-sky-400 hover:bg-sky-300 text-navy-900 font-bold rounded-xl text-lg shadow-lg shadow-sky-400/30 transition-all"> <span class="flex items-center justify-center gap-2"><i data-lucide="play-circle" class="w-5 h-5"></i> เริ่มทำข้อสอบเลย</span> </button> <button class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-lg font-medium transition-all"> <span class="flex items-center justify-center gap-2"><i data-lucide="user-plus" class="w-5 h-5"></i> สมัครสมาชิกฟรี</span> </button>
+      </div>
+      <div class="mt-10 flex justify-center gap-8 text-sm text-sky-200"><span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> ฟรี 100 ข้อ</span> <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> เฉลยละเอียด</span> <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-4 h-4"></i> อัพเดตล่าสุด</span>
+      </div>
+     </div>
+    </section><!-- Popular Categories -->
+    <section class="max-w-5xl mx-auto px-4 py-12">
+     <div class="flex items-center justify-between mb-6">
+      <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800">หมวดวิชายอดนิยม</h2><button onclick="navigateTo('categories')" class="text-sm text-navy-600 font-medium hover:underline flex items-center gap-1">ดูทั้งหมด <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+     </div>
+     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="homeCats"></div>
+    </section><!-- Recommended Exams -->
+    <section class="max-w-5xl mx-auto px-4 pb-12">
+     <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6">ข้อสอบแนะนำ</h2>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="homeExams"></div>
+    </section><!-- Features -->
+    <section class="bg-white border-y border-slate-200">
+     <div class="max-w-5xl mx-auto px-4 py-12">
+      <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-8 text-center">ทำไมต้องเลือกเรา?</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+       <div class="text-center">
+        <div class="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+         <i data-lucide="book-open" class="w-7 h-7 text-navy-600"></i>
+        </div>
+        <h3 class="font-semibold text-navy-800 mb-1">ข้อสอบมากกว่า 10,000 ข้อ</h3>
+        <p class="text-sm text-slate-500">ครอบคลุมทุกวิชาที่ออกสอบจริง</p>
+       </div>
+       <div class="text-center">
+        <div class="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+         <i data-lucide="file-check" class="w-7 h-7 text-navy-600"></i>
+        </div>
+        <h3 class="font-semibold text-navy-800 mb-1">เฉลยละเอียด</h3>
+        <p class="text-sm text-slate-500">ทุกข้อมีคำอธิบายเข้าใจง่าย</p>
+       </div>
+       <div class="text-center">
+        <div class="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+         <i data-lucide="bar-chart-3" class="w-7 h-7 text-navy-600"></i>
+        </div>
+        <h3 class="font-semibold text-navy-800 mb-1">วิเคราะห์จุดอ่อน</h3>
+        <p class="text-sm text-slate-500">ระบบ AI ช่วยชี้จุดที่ควรพัฒนา</p>
+       </div>
+       <div class="text-center">
+        <div class="w-14 h-14 bg-sky-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+         <i data-lucide="refresh-cw" class="w-7 h-7 text-navy-600"></i>
+        </div>
+        <h3 class="font-semibold text-navy-800 mb-1">อัพเดตทุกเดือน</h3>
+        <p class="text-sm text-slate-500">ตามหลักสูตร ก.พ. ล่าสุด</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Stats -->
+    <section class="max-w-5xl mx-auto px-4 py-12">
+     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
+       <div class="text-3xl font-display font-bold text-navy-600 stat-counter">
+        52,480
+       </div>
+       <div class="text-sm text-slate-500 mt-1">
+        ผู้ใช้งาน
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
+       <div class="text-3xl font-display font-bold text-navy-600 stat-counter">
+        10,200
+       </div>
+       <div class="text-sm text-slate-500 mt-1">
+        ข้อสอบ
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
+       <div class="text-3xl font-display font-bold text-navy-600 stat-counter">
+        89%
+       </div>
+       <div class="text-sm text-slate-500 mt-1">
+        สอบผ่าน
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-slate-200">
+       <div class="text-3xl font-display font-bold text-navy-600 stat-counter">
+        4.8 ⭐
+       </div>
+       <div class="text-sm text-slate-500 mt-1">
+        คะแนนรีวิว
+       </div>
+      </div>
+     </div>
+    </section><!-- Reviews -->
+    <section class="bg-white border-y border-slate-200">
+     <div class="max-w-5xl mx-auto px-4 py-12">
+      <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 text-center">เสียงจากผู้ใช้จริง</h2>
+      <div class="grid sm:grid-cols-3 gap-4">
+       <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+        <div class="flex items-center gap-2 mb-3">
+         <div class="w-10 h-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-600 font-bold">
+          ส
+         </div>
+         <div>
+          <div class="font-semibold text-sm">
+           สมชาย ก.
+          </div>
+          <div class="text-xs text-slate-400">
+           สอบผ่าน ก.พ. 66
+          </div>
+         </div>
+        </div>
+        <p class="text-sm text-slate-600">"ข้อสอบตรงมาก เฉลยละเอียดมากครับ ช่วยให้สอบผ่านรอบแรก"</p>
+        <div class="text-yellow-400 text-sm mt-2">
+         ★★★★★
+        </div>
+       </div>
+       <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+        <div class="flex items-center gap-2 mb-3">
+         <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-bold">
+          น
+         </div>
+         <div>
+          <div class="font-semibold text-sm">
+           นภา ว.
+          </div>
+          <div class="text-xs text-slate-400">
+           สอบผ่าน กรมบัญชีกลาง
+          </div>
+         </div>
+        </div>
+        <p class="text-sm text-slate-600">"ใช้งานง่ายมาก ทำข้อสอบบนมือถือได้สะดวก แนะนำเลยค่ะ"</p>
+        <div class="text-yellow-400 text-sm mt-2">
+         ★★★★★
+        </div>
+       </div>
+       <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
+        <div class="flex items-center gap-2 mb-3">
+         <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold">
+          พ
+         </div>
+         <div>
+          <div class="font-semibold text-sm">
+           พิชัย จ.
+          </div>
+          <div class="text-xs text-slate-400">
+           สอบผ่าน ท้องถิ่น 67
+          </div>
+         </div>
+        </div>
+        <p class="text-sm text-slate-600">"Dashboard วิเคราะห์จุดอ่อนได้ดี ทำให้รู้ว่าควรอ่านตรงไหนเพิ่ม"</p>
+        <div class="text-yellow-400 text-sm mt-2">
+         ★★★★★
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <footer class="bg-navy-900 text-white">
+     <div class="max-w-5xl mx-auto px-4 py-10">
+      <div class="grid sm:grid-cols-3 gap-8">
+       <div>
+        <div class="flex items-center gap-2 mb-3">
+         <div class="w-8 h-8 rounded-lg bg-sky-400 flex items-center justify-center">
+          <i data-lucide="graduation-cap" class="w-5 h-5 text-navy-900"></i>
+         </div><span class="font-display font-bold text-lg">RajExam</span>
+        </div>
+        <p class="text-sm text-slate-400">แพลตฟอร์มเตรียมสอบราชการออนไลน์ที่ครบวงจรที่สุด</p>
+       </div>
+       <div>
+        <h4 class="font-semibold mb-3 text-sm">ลิงก์ด่วน</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+         <li><button onclick="navigateTo('categories')" class="hover:text-white transition">หมวดวิชาทั้งหมด</button></li>
+         <li><button onclick="navigateTo('dashboard')" class="hover:text-white transition">Dashboard</button></li>
+         <li><button class="hover:text-white transition">วิธีใช้งาน</button></li>
+        </ul>
+       </div>
+       <div>
+        <h4 class="font-semibold mb-3 text-sm">ติดต่อเรา</h4>
+        <ul class="space-y-2 text-sm text-slate-400">
+         <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> support@rajexam.th</li>
+         <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 02-XXX-XXXX</li>
+        </ul>
+       </div>
+      </div>
+      <div class="border-t border-slate-700 mt-8 pt-6 text-center text-xs text-slate-500">
+       © 2025 RajExam — Demo Prototype
+      </div>
+     </div>
+    </footer>
+   </div><!-- ========== PAGE 2: CATEGORIES ========== -->
+   <div id="page-categories" class="page">
+    <div class="max-w-5xl mx-auto px-4 py-8 fade-in">
+     <h1 class="font-display text-2xl font-bold text-navy-800 mb-2">เลือกหมวดวิชา</h1>
+     <p class="text-slate-500 mb-6">เลือกวิชาที่ต้องการฝึกทำข้อสอบ</p>
+     <div class="relative mb-6"><i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i> <input type="text" id="catSearch" oninput="filterCategories()" placeholder="ค้นหาหมวดวิชา..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-navy-300 text-sm">
+     </div>
+     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="catGrid"></div>
+    </div>
+   </div><!-- ========== PAGE 3: EXAM LIST ========== -->
+   <div id="page-examlist" class="page">
+    <div class="max-w-5xl mx-auto px-4 py-8 fade-in"><button onclick="navigateTo('categories')" class="flex items-center gap-1 text-sm text-navy-600 mb-4 hover:underline"><i data-lucide="chevron-left" class="w-4 h-4"></i> กลับ</button>
+     <h1 class="font-display text-2xl font-bold text-navy-800 mb-1" id="examListTitle">ชุดข้อสอบ</h1>
+     <p class="text-slate-500 mb-6" id="examListSub"></p>
+     <div class="flex flex-col sm:flex-row gap-3 mb-6">
+      <div class="relative flex-1">
+       <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i><input type="text" id="examSearch" oninput="filterExams()" placeholder="ค้นหาชุดข้อสอบ..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-navy-300 text-sm">
+      </div><select id="diffFilter" onchange="filterExams()" class="px-4 py-3 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-navy-300"><option value="all">ทุกระดับ</option><option value="ง่าย">ง่าย</option><option value="ปานกลาง">ปานกลาง</option><option value="ยาก">ยาก</option></select>
+     </div>
+     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="examGrid"></div>
+    </div>
+   </div><!-- ========== PAGE 4: QUIZ ========== -->
+   <div id="page-quiz" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-6 fade-in"><!-- Quiz Header -->
+     <div class="flex items-center justify-between mb-4"><button onclick="confirmExitQuiz()" class="flex items-center gap-1 text-sm text-slate-500 hover:text-red-500 transition"><i data-lucide="x" class="w-5 h-5"></i> ออก</button>
+      <div class="flex items-center gap-2 text-sm font-medium text-navy-700 bg-white px-3 py-1.5 rounded-lg border border-slate-200">
+       <i data-lucide="clock" class="w-4 h-4"></i> <span id="quizTimer">00:00</span>
+      </div>
+     </div><!-- Progress -->
+     <div class="mb-6">
+      <div class="flex justify-between text-xs text-slate-500 mb-1">
+       <span id="qProgress">ข้อ 1/10</span><span id="qPercent">0%</span>
+      </div>
+      <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+       <div id="qBar" class="h-full bg-gradient-to-r from-navy-600 to-sky-400 rounded-full progress-fill" style="width:0%"></div>
+      </div>
+     </div><!-- Question Card -->
+     <div class="bg-white rounded-2xl border border-slate-200 p-6 mb-6 shadow-sm">
+      <p id="qText" class="text-lg font-medium text-navy-800 mb-6 leading-relaxed"></p>
+      <div id="qChoices" class="space-y-3"></div>
+     </div><!-- Nav -->
+     <div class="flex justify-between"><button onclick="prevQuestion()" id="btnPrev" class="px-5 py-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 transition flex items-center gap-1 disabled:opacity-40" disabled><i data-lucide="chevron-left" class="w-4 h-4"></i> ก่อนหน้า</button> <button onclick="nextQuestion()" id="btnNext" class="px-5 py-3 rounded-xl bg-navy-600 text-white text-sm font-medium hover:bg-navy-700 transition flex items-center gap-1">ถัดไป <i data-lucide="chevron-right" class="w-4 h-4"></i></button> <button onclick="submitQuiz()" id="btnSubmit" class="hidden px-6 py-3 rounded-xl bg-emerald-600 text-white text-sm font-medium hover:bg-emerald-700 transition flex items-center gap-1"><i data-lucide="send" class="w-4 h-4"></i> ส่งข้อสอบ</button>
+     </div><!-- Exit Confirm -->
+     <div id="exitConfirm" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-xl">
+       <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="alert-triangle" class="w-7 h-7 text-red-500"></i>
+       </div>
+       <h3 class="font-bold text-lg mb-2">ออกจากข้อสอบ?</h3>
+       <p class="text-sm text-slate-500 mb-6">ผลทำข้อสอบจะไม่ถูกบันทึก</p>
+       <div class="flex gap-3">
+        <button onclick="closeExitConfirm()" class="flex-1 py-3 rounded-xl border border-slate-200 text-sm font-medium hover:bg-slate-50">ทำต่อ</button><button onclick="navigateTo('examlist')" class="flex-1 py-3 rounded-xl bg-red-500 text-white text-sm font-medium hover:bg-red-600">ออก</button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- ========== PAGE 5: RESULTS ========== -->
+   <div id="page-results" class="page">
+    <div class="max-w-3xl mx-auto px-4 py-8 fade-in text-center">
+     <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm mb-6">
+      <div id="resultIcon" class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"></div>
+      <h1 id="resultTitle" class="font-display text-2xl font-bold mb-1"></h1>
+      <p id="resultSub" class="text-slate-500 mb-6"></p><!-- Score Ring -->
+      <div class="relative w-40 h-40 mx-auto mb-6">
+       <svg viewbox="0 0 120 120" class="w-full h-full -rotate-90"><circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" stroke-width="10" /> <circle id="scoreRing" cx="60" cy="60" r="50" fill="none" stroke="#1e3a8a" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" style="transition:stroke-dashoffset 1.5s ease" />
+       </svg>
+       <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <span id="scorePct" class="text-3xl font-display font-bold text-navy-800"></span><span class="text-xs text-slate-400">คะแนน</span>
+       </div>
+      </div><!-- Stats -->
+      <div class="grid grid-cols-3 gap-4 mb-6">
+       <div class="bg-emerald-50 rounded-xl p-4">
+        <div id="rCorrect" class="text-2xl font-bold text-emerald-600"></div>
+        <div class="text-xs text-slate-500">
+         ถูก
+        </div>
+       </div>
+       <div class="bg-red-50 rounded-xl p-4">
+        <div id="rWrong" class="text-2xl font-bold text-red-500"></div>
+        <div class="text-xs text-slate-500">
+         ผิด
+        </div>
+       </div>
+       <div class="bg-slate-50 rounded-xl p-4">
+        <div id="rTime" class="text-2xl font-bold text-slate-600"></div>
+        <div class="text-xs text-slate-500">
+         เวลา
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="flex flex-col sm:flex-row gap-3"><button onclick="showAnswerReview()" class="flex-1 py-4 rounded-xl bg-navy-600 text-white font-medium hover:bg-navy-700 transition flex items-center justify-center gap-2"><i data-lucide="eye" class="w-5 h-5"></i> ดูเฉลยละเอียด</button> <button onclick="restartQuiz()" class="flex-1 py-4 rounded-xl border border-slate-200 bg-white font-medium hover:bg-slate-50 transition flex items-center justify-center gap-2"><i data-lucide="refresh-cw" class="w-5 h-5"></i> ทำใหม่อีกครั้ง</button> <button onclick="navigateTo('home')" class="flex-1 py-4 rounded-xl border border-slate-200 bg-white font-medium hover:bg-slate-50 transition flex items-center justify-center gap-2"><i data-lucide="home" class="w-5 h-5"></i> กลับหน้าแรก</button>
+     </div><!-- Answer Review -->
+     <div id="answerReview" class="hidden mt-6 text-left space-y-4"></div>
+    </div>
+   </div><!-- ========== PAGE 6: DASHBOARD ========== -->
+   <div id="page-dashboard" class="page">
+    <div class="max-w-5xl mx-auto px-4 py-8 fade-in">
+     <div class="flex items-center gap-3 mb-6">
+      <div class="w-12 h-12 rounded-full bg-navy-600 text-white flex items-center justify-center text-xl font-bold">
+       ก
+      </div>
+      <div>
+       <h1 class="font-display text-xl font-bold text-navy-800">สวัสดี, กมลชนก</h1>
+       <p class="text-sm text-slate-500">มาฝึกทำข้อสอบกันเถอะ!</p>
+      </div>
+     </div><!-- Summary Cards -->
+     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div class="bg-white rounded-2xl p-4 border border-slate-200">
+       <div class="text-xs text-slate-400 mb-1">
+        ทำข้อสอบแล้ว
+       </div>
+       <div class="text-2xl font-display font-bold text-navy-700" id="dashTotal">
+        12
+       </div>
+       <div class="text-xs text-slate-400">
+        ชุด
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-slate-200">
+       <div class="text-xs text-slate-400 mb-1">
+        คะแนนเฉลี่ย
+       </div>
+       <div class="text-2xl font-display font-bold text-emerald-600" id="dashAvg">
+        74%
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-slate-200">
+       <div class="text-xs text-slate-400 mb-1">
+        ข้อที่ทำ
+       </div>
+       <div class="text-2xl font-display font-bold text-navy-700">
+        120
+       </div>
+       <div class="text-xs text-slate-400">
+        ข้อ
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-4 border border-slate-200">
+       <div class="text-xs text-slate-400 mb-1">
+        เวลาเรียนรู้
+       </div>
+       <div class="text-2xl font-display font-bold text-sky-500">
+        5.2
+       </div>
+       <div class="text-xs text-slate-400">
+        ชั่วโมง
+       </div>
+      </div>
+     </div><!-- Strength / Weakness -->
+     <div class="grid sm:grid-cols-2 gap-4 mb-6">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200">
+       <h3 class="font-semibold text-navy-800 mb-3 flex items-center gap-2"><i data-lucide="trending-up" class="w-5 h-5 text-emerald-500"></i> วิชาที่ทำได้ดี</h3>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1">
+          <span>ภาษาไทย</span><span class="font-semibold text-emerald-600">88%</span>
+         </div>
+         <div class="h-2 bg-slate-100 rounded-full">
+          <div class="h-full bg-emerald-400 rounded-full" style="width:88%"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1">
+          <span>ความรู้ทั่วไป</span><span class="font-semibold text-emerald-600">82%</span>
+         </div>
+         <div class="h-2 bg-slate-100 rounded-full">
+          <div class="h-full bg-emerald-400 rounded-full" style="width:82%"></div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="bg-white rounded-2xl p-5 border border-slate-200">
+       <h3 class="font-semibold text-navy-800 mb-3 flex items-center gap-2"><i data-lucide="trending-down" class="w-5 h-5 text-red-400"></i> วิชาที่ควรพัฒนา</h3>
+       <div class="space-y-3">
+        <div>
+         <div class="flex justify-between text-sm mb-1">
+          <span>ภาษาอังกฤษ</span><span class="font-semibold text-red-500">52%</span>
+         </div>
+         <div class="h-2 bg-slate-100 rounded-full">
+          <div class="h-full bg-red-400 rounded-full" style="width:52%"></div>
+         </div>
+        </div>
+        <div>
+         <div class="flex justify-between text-sm mb-1">
+          <span>คณิตศาสตร์</span><span class="font-semibold text-amber-500">60%</span>
+         </div>
+         <div class="h-2 bg-slate-100 rounded-full">
+          <div class="h-full bg-amber-400 rounded-full" style="width:60%"></div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- History -->
+     <div class="bg-white rounded-2xl border border-slate-200 p-5 mb-6">
+      <h3 class="font-semibold text-navy-800 mb-4 flex items-center gap-2"><i data-lucide="history" class="w-5 h-5 text-slate-400"></i> ประวัติการทำข้อสอบ</h3>
+      <div class="space-y-3" id="dashHistory"></div>
+     </div><!-- Bookmarks -->
+     <div class="bg-white rounded-2xl border border-slate-200 p-5">
+      <h3 class="font-semibold text-navy-800 mb-4 flex items-center gap-2"><i data-lucide="bookmark" class="w-5 h-5 text-amber-400"></i> ข้อสอบที่บุ๊กมาร์ก</h3>
+      <div class="space-y-3">
+       <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-xl">
+        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center text-sm font-bold text-amber-600 shrink-0">
+         1
+        </div>
+        <div>
+         <p class="text-sm font-medium">พ.ร.บ. ระเบียบบริหารราชการแผ่นดิน พ.ศ. 2534 ในมาตรา 11 กำหนดให้ใครเป็นผู้บังคับบัญชาข้าราชการ?</p><span class="text-xs text-slate-400">กฎหมาย • บุ๊กมาร์กเมื่อ 2 วันก่อน</span>
+        </div>
+       </div>
+       <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-xl">
+        <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center text-sm font-bold text-amber-600 shrink-0">
+         2
+        </div>
+        <div>
+         <p class="text-sm font-medium">คำว่า "กฤษฎีกา" ในทางกฎหมายหมายถึงอะไร?</p><span class="text-xs text-slate-400">ภาษาไทย • บุ๊กมาร์กเมื่อ 5 วันก่อน</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div><!-- /app -->
+  <script>
+// ===== DATA =====
+const CATEGORIES = [
+  {id:'thai',name:'ภาษาไทย',icon:'book-open',color:'bg-blue-50 text-blue-600',count:42},
+  {id:'eng',name:'ภาษาอังกฤษ',icon:'globe',color:'bg-purple-50 text-purple-600',count:38},
+  {id:'math',name:'คณิตศาสตร์',icon:'calculator',color:'bg-emerald-50 text-emerald-600',count:35},
+  {id:'law',name:'กฎหมาย',icon:'scale',color:'bg-red-50 text-red-600',count:50},
+  {id:'general',name:'ความรู้ทั่วไป',icon:'lightbulb',color:'bg-amber-50 text-amber-600',count:30},
+  {id:'computer',name:'คอมพิวเตอร์',icon:'monitor',color:'bg-cyan-50 text-cyan-600',count:28},
+];
+
+const EXAMS = {
+  thai:[
+    {id:'t1',name:'แนวข้อสอบภาษาไทย ชุด 1',count:10,time:'15 นาที',diff:'ง่าย'},
+    {id:'t2',name:'แนวข้อสอบภาษาไทย ชุด 2',count:10,time:'15 นาที',diff:'ปานกลาง'},
+    {id:'t3',name:'ข้อสอบเก่า ก.พ. ภาษาไทย',count:10,time:'20 นาที',diff:'ยาก'},
+  ],
+  eng:[
+    {id:'e1',name:'Grammar & Vocabulary',count:10,time:'15 นาที',diff:'ง่าย'},
+    {id:'e2',name:'Reading Comprehension',count:10,time:'20 นาที',diff:'ปานกลาง'},
+  ],
+  math:[
+    {id:'m1',name:'คณิตศาสตร์เบื้องต้น',count:10,time:'20 นาที',diff:'ง่าย'},
+    {id:'m2',name:'วิเคราะห์ข้อมูล & สถิติ',count:10,time:'25 นาที',diff:'ยาก'},
+  ],
+  law:[
+    {id:'l1',name:'รัฐธรรมนูญ 2560',count:10,time:'15 นาที',diff:'ปานกลาง'},
+    {id:'l2',name:'พ.ร.บ. ระเบียบบริหารราชการ',count:10,time:'20 นาที',diff:'ยาก'},
+  ],
+  general:[
+    {id:'g1',name:'เหตุการณ์ปัจจุบัน 2567-68',count:10,time:'10 นาที',diff:'ง่าย'},
+  ],
+  computer:[
+    {id:'c1',name:'ความรู้ IT พื้นฐาน',count:10,time:'15 นาที',diff:'ง่าย'},
+  ],
+};
+
+const QUESTIONS = {
+  t1:[
+    {q:'คำใดเขียนถูกต้องตามหลักราชบัณฑิตยสถาน?',c:['สังเกตุ','สังเกต','สังเกตต์','สังเกตร์'],a:1,exp:'"สังเกต" ไม่มีการันต์ เป็นคำที่มาจากภาษาบาลี-สันสกฤต'},
+    {q:'"กฤษฎีกา" จัดเป็นคำชนิดใด?',c:['คำไทยแท้','คำบาลี','คำสันสกฤต','คำเขมร'],a:2,exp:'กฤษฎีกา เป็นคำที่มาจากภาษาสันสกฤต แปลว่า การกระทำ'},
+    {q:'ข้อใดเป็นคำราชาศัพท์สำหรับ "กิน"?',c:['เสวย','ฉัน','รับประทาน','เสวยพระกระยาหาร'],a:0,exp:'"เสวย" เป็นราชาศัพท์ที่ใช้กับพระมหากษัตริย์'},
+    {q:'สำนวน "น้ำขึ้นให้รีบตัก" หมายความว่าอย่างไร?',c:['รีบทำเมื่อมีโอกาส','รีบเก็บของ','อย่าประมาท','ใช้น้ำอย่างประหยัด'],a:0,exp:'หมายถึง เมื่อมีโอกาสดีควรรีบคว้าไว้'},
+    {q:'ข้อใดเป็นประโยคซับซ้อน?',c:['ฝนตก','แม่ทำกับข้าว','เด็กร้องไห้เพราะหิว','เขานอน'],a:2,exp:'ประโยคซับซ้อนมีประโยคหลัก+ประโยคย่อย ใช้คำเชื่อม "เพราะ"'},
+    {q:'คำว่า "ประชาธิปไตย" มีกี่พยางค์?',c:['4','5','6','7'],a:2,exp:'ปะ-ชา-ทิป-ปะ-ไต-ย = 6 พยางค์'},
+    {q:'ข้อใดใช้ "ใ-" (ไม้ม้วน)?',c:['ใช้','ไป','ไม่','ไหม'],a:0,exp:'"ใช้" เป็น 1 ใน 20 คำที่ใช้ไม้ม้วน'},
+    {q:'ข้อใดเป็นคำมูล?',c:['ตะเกียง','ลูกเสือ','พี่น้อง','มะพร้าว'],a:3,exp:'มะพร้าว เป็นคำมูลที่มี 2 พยางค์ แต่แยกหน่วยความหมายไม่ได้'},
+    {q:'คำว่า "ข้าราชการ" แยกเป็นหน่วยคำได้อย่างไร?',c:['ข้า+ราช+การ','ข้าราช+การ','ข้า+ราชการ','แยกไม่ได้'],a:2,exp:'ข้า (ผู้รับใช้) + ราชการ (งานของพระราชา)'},
+    {q:'ข้อใดเป็นโวหารเปรียบเทียบ (อุปมา)?',c:['ฝนตกหนักมาก','เธอสวยเหมือนดอกไม้','บ้านหลังใหญ่','ลมพัดเย็น'],a:1,exp:'อุปมาใช้คำเปรียบเทียบ เช่น เหมือน, ดุจ, ราว'},
+  ],
+};
+// Duplicate for other exams (simplified for demo)
+['t2','t3','e1','e2','m1','m2','l1','l2','g1','c1'].forEach(k=>{
+  if(!QUESTIONS[k]) QUESTIONS[k] = QUESTIONS.t1.map((q,i)=>({...q, q: q.q + ` (${k.toUpperCase()}-${i+1})`}));
+});
+
+const HISTORY = [
+  {name:'ภาษาไทย ชุด 1',score:80,date:'วันนี้',cat:'ภาษาไทย'},
+  {name:'กฎหมาย ชุด 1',score:65,date:'เมื่อวาน',cat:'กฎหมาย'},
+  {name:'คณิตศาสตร์ ชุด 1',score:70,date:'3 วันก่อน',cat:'คณิตศาสตร์'},
+];
+
+// ===== STATE =====
+let currentPage = 'home';
+let currentCat = null;
+let currentExamId = null;
+let currentQ = 0;
+let answers = [];
+let timerInterval = null;
+let timerSeconds = 0;
+
+// ===== NAVIGATION =====
+function navigateTo(page, data) {
+  if (timerInterval && page !== 'quiz') { clearInterval(timerInterval); timerInterval = null; }
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  currentPage = page;
+  document.getElementById('app').scrollTop = 0;
+  // Active nav
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('text-navy-600','font-semibold'));
+  const activeBtn = document.querySelector(`.nav-btn[data-nav="${page}"]`);
+  if (activeBtn) { activeBtn.classList.add('text-navy-600','font-semibold'); }
+  
+  if (page === 'categories') renderCategories();
+  if (page === 'examlist') renderExamList(data);
+  if (page === 'quiz') startQuiz(data);
+  if (page === 'dashboard') renderDashboard();
+  
+  setTimeout(() => lucide.createIcons(), 50);
+}
+
+// ===== HOME =====
+function renderHome() {
+  // Categories
+  const hc = document.getElementById('homeCats');
+  hc.innerHTML = CATEGORIES.map((c,i) => `
+    <button onclick="navigateTo('examlist','${c.id}')" class="card-hover bg-white rounded-2xl p-4 border border-slate-200 text-center fade-in stagger-${i+1}">
+      <div class="w-12 h-12 ${c.color.split(' ')[0]} rounded-xl flex items-center justify-center mx-auto mb-2"><i data-lucide="${c.icon}" class="w-6 h-6 ${c.color.split(' ')[1]}"></i></div>
+      <div class="text-sm font-semibold text-navy-800">${c.name}</div>
+      <div class="text-xs text-slate-400 mt-0.5">${c.count} ชุด</div>
+    </button>
+  `).join('');
+  // Exams
+  const he = document.getElementById('homeExams');
+  const featured = [{...EXAMS.thai[0],cat:'ภาษาไทย'},{...EXAMS.law[0],cat:'กฎหมาย'},{...EXAMS.general[0],cat:'ความรู้ทั่วไป'}];
+  he.innerHTML = featured.map((e,i) => `
+    <div class="card-hover bg-white rounded-2xl border border-slate-200 p-5 fade-in stagger-${i+1}">
+      <div class="flex items-center gap-2 mb-3"><span class="px-2 py-0.5 text-xs rounded-full bg-navy-100 text-navy-600 font-medium">${e.cat}</span><span class="px-2 py-0.5 text-xs rounded-full ${e.diff==='ง่าย'?'bg-emerald-100 text-emerald-600':e.diff==='ปานกลาง'?'bg-amber-100 text-amber-600':'bg-red-100 text-red-600'}">${e.diff}</span></div>
+      <h3 class="font-semibold text-navy-800 mb-3">${e.name}</h3>
+      <div class="flex items-center gap-4 text-xs text-slate-400 mb-4"><span class="flex items-center gap-1"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>${e.count} ข้อ</span><span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i>${e.time}</span></div>
+      <button onclick="navigateTo('quiz','${e.id}')" class="w-full py-3 rounded-xl bg-navy-600 text-white text-sm font-medium hover:bg-navy-700 transition">เริ่มทำข้อสอบ</button>
+    </div>
+  `).join('');
+}
+
+// ===== CATEGORIES =====
+function renderCategories(filter='') {
+  const grid = document.getElementById('catGrid');
+  const filtered = CATEGORIES.filter(c => c.name.includes(filter));
+  grid.innerHTML = filtered.map((c,i) => `
+    <button onclick="navigateTo('examlist','${c.id}')" class="card-hover bg-white rounded-2xl p-6 border border-slate-200 text-center fade-in stagger-${i+1}">
+      <div class="w-16 h-16 ${c.color.split(' ')[0]} rounded-2xl flex items-center justify-center mx-auto mb-3"><i data-lucide="${c.icon}" class="w-8 h-8 ${c.color.split(' ')[1]}"></i></div>
+      <div class="font-semibold text-navy-800 mb-1">${c.name}</div>
+      <div class="text-xs text-slate-400">${c.count} ชุดข้อสอบ</div>
+      <div class="mt-3 text-xs text-navy-600 font-medium flex items-center justify-center gap-1">ดูข้อสอบ <i data-lucide="chevron-right" class="w-3 h-3"></i></div>
+    </button>
+  `).join('');
+  setTimeout(() => lucide.createIcons(), 50);
+}
+function filterCategories() { renderCategories(document.getElementById('catSearch').value); }
+
+// ===== EXAM LIST =====
+function renderExamList(catId) {
+  if (catId) currentCat = catId;
+  const cat = CATEGORIES.find(c => c.id === currentCat);
+  if (!cat) return;
+  document.getElementById('examListTitle').textContent = `ชุดข้อสอบ ${cat.name}`;
+  document.getElementById('examListSub').textContent = `${(EXAMS[currentCat]||[]).length} ชุดข้อสอบ`;
+  filterExams();
+}
+function filterExams() {
+  const search = document.getElementById('examSearch').value.toLowerCase();
+  const diff = document.getElementById('diffFilter').value;
+  const exams = (EXAMS[currentCat]||[]).filter(e => {
+    const matchSearch = e.name.toLowerCase().includes(search);
+    const matchDiff = diff === 'all' || e.diff === diff;
+    return matchSearch && matchDiff;
+  });
+  const grid = document.getElementById('examGrid');
+  grid.innerHTML = exams.map((e,i) => `
+    <div class="card-hover bg-white rounded-2xl border border-slate-200 p-5 fade-in stagger-${i+1}">
+      <div class="mb-3"><span class="px-2 py-0.5 text-xs rounded-full ${e.diff==='ง่าย'?'bg-emerald-100 text-emerald-600':e.diff==='ปานกลาง'?'bg-amber-100 text-amber-600':'bg-red-100 text-red-600'} font-medium">${e.diff}</span></div>
+      <h3 class="font-semibold text-navy-800 mb-3">${e.name}</h3>
+      <div class="flex items-center gap-4 text-xs text-slate-400 mb-4"><span class="flex items-center gap-1"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> ${e.count} ข้อ</span><span class="flex items-center gap-1"><i data-lucide="clock" class="w-3.5 h-3.5"></i> ${e.time}</span></div>
+      <button onclick="navigateTo('quiz','${e.id}')" class="w-full py-3 rounded-xl bg-navy-600 text-white text-sm font-medium hover:bg-navy-700 transition flex items-center justify-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> เริ่มทำข้อสอบ</button>
+    </div>
+  `).join('');
+  setTimeout(() => lucide.createIcons(), 50);
+}
+
+// ===== QUIZ =====
+function startQuiz(examId) {
+  if (examId) currentExamId = examId;
+  currentQ = 0;
+  answers = new Array((QUESTIONS[currentExamId]||[]).length).fill(-1);
+  timerSeconds = 0;
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => { timerSeconds++; document.getElementById('quizTimer').textContent = formatTime(timerSeconds); }, 1000);
+  renderQuestion();
+}
+function renderQuestion() {
+  const qs = QUESTIONS[currentExamId] || [];
+  const q = qs[currentQ];
+  if (!q) return;
+  const total = qs.length;
+  document.getElementById('qProgress').textContent = `ข้อ ${currentQ+1}/${total}`;
+  const pct = Math.round(((currentQ+1)/total)*100);
+  document.getElementById('qPercent').textContent = pct+'%';
+  document.getElementById('qBar').style.width = pct+'%';
+  document.getElementById('qText').textContent = `${currentQ+1}. ${q.q}`;
+  const choicesEl = document.getElementById('qChoices');
+  const labels = ['ก','ข','ค','ง'];
+  choicesEl.innerHTML = q.c.map((c,i) => `
+    <button onclick="selectAnswer(${i})" class="choice-btn w-full text-left p-4 rounded-xl border ${answers[currentQ]===i?'border-navy-500 bg-navy-50 font-medium':'border-slate-200 bg-white'} flex items-center gap-3">
+      <span class="w-8 h-8 rounded-lg ${answers[currentQ]===i?'bg-navy-600 text-white':'bg-slate-100 text-slate-500'} flex items-center justify-center text-sm font-bold shrink-0">${labels[i]}</span>
+      <span class="text-sm">${c}</span>
+    </button>
+  `).join('');
+  // Nav buttons
+  document.getElementById('btnPrev').disabled = currentQ === 0;
+  if (currentQ === total - 1) {
+    document.getElementById('btnNext').classList.add('hidden');
+    document.getElementById('btnSubmit').classList.remove('hidden');
+    document.getElementById('btnSubmit').style.display = 'flex';
+  } else {
+    document.getElementById('btnNext').classList.remove('hidden');
+    document.getElementById('btnSubmit').classList.add('hidden');
+  }
+  setTimeout(() => lucide.createIcons(), 50);
+}
+function selectAnswer(i) { answers[currentQ] = i; renderQuestion(); }
+function prevQuestion() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
+function nextQuestion() { const qs = QUESTIONS[currentExamId]||[]; if (currentQ < qs.length-1) { currentQ++; renderQuestion(); } }
+function confirmExitQuiz() { document.getElementById('exitConfirm').classList.remove('hidden'); }
+function closeExitConfirm() { document.getElementById('exitConfirm').classList.add('hidden'); }
+
+function submitQuiz() {
+  clearInterval(timerInterval); timerInterval = null;
+  const qs = QUESTIONS[currentExamId]||[];
+  let correct = 0;
+  qs.forEach((q,i) => { if (answers[i] === q.a) correct++; });
+  const pct = Math.round((correct/qs.length)*100);
+  // Set results
+  const ring = document.getElementById('scoreRing');
+  const offset = 314 - (314 * pct / 100);
+  ring.style.strokeDashoffset = 314;
+  setTimeout(() => { ring.style.strokeDashoffset = offset; ring.style.stroke = pct >= 60 ? '#16a34a' : '#dc2626'; }, 100);
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = qs.length - correct;
+  document.getElementById('rTime').textContent = formatTime(timerSeconds);
+  const icon = document.getElementById('resultIcon');
+  if (pct >= 80) { icon.className = 'w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4'; icon.innerHTML = '<i data-lucide="trophy" class="w-10 h-10 text-emerald-500"></i>'; document.getElementById('resultTitle').textContent = 'ยอดเยี่ยม! 🎉'; document.getElementById('resultSub').textContent = 'คุณทำได้ดีมาก!'; }
+  else if (pct >= 60) { icon.className = 'w-20 h-20 rounded-full bg-sky-100 flex items-center justify-center mx-auto mb-4'; icon.innerHTML = '<i data-lucide="thumbs-up" class="w-10 h-10 text-sky-500"></i>'; document.getElementById('resultTitle').textContent = 'ผ่านเกณฑ์! 👍'; document.getElementById('resultSub').textContent = 'พยายามอีกนิดจะดีขึ้นอีก'; }
+  else { icon.className = 'w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4'; icon.innerHTML = '<i data-lucide="refresh-cw" class="w-10 h-10 text-red-400"></i>'; document.getElementById('resultTitle').textContent = 'ลองใหม่อีกครั้ง 💪'; document.getElementById('resultSub').textContent = 'ทบทวนเนื้อหาแล้วกลับมาทำใหม่นะ'; }
+  document.getElementById('answerReview').classList.add('hidden');
+  navigateTo('results');
+}
+
+function showAnswerReview() {
+  const qs = QUESTIONS[currentExamId]||[];
+  const labels = ['ก','ข','ค','ง'];
+  const rev = document.getElementById('answerReview');
+  rev.innerHTML = qs.map((q,i) => {
+    const isCorrect = answers[i] === q.a;
+    return `
+    <div class="bg-white rounded-2xl border border-slate-200 p-5">
+      <div class="flex items-start gap-2 mb-3">
+        <span class="w-7 h-7 rounded-lg ${isCorrect?'bg-emerald-100 text-emerald-600':'bg-red-100 text-red-500'} flex items-center justify-center text-sm font-bold shrink-0">${i+1}</span>
+        <p class="text-sm font-medium">${q.q}</p>
+      </div>
+      <div class="space-y-2 mb-3">${q.c.map((c,j) => `
+        <div class="flex items-center gap-2 text-sm p-2 rounded-lg ${j===q.a?'bg-emerald-50 text-emerald-700 font-medium':j===answers[i]&&j!==q.a?'bg-red-50 text-red-600':'text-slate-600'}">
+          <span class="font-bold">${labels[j]}.</span> ${c} ${j===q.a?'✓':''}${j===answers[i]&&j!==q.a?'✗':''}
+        </div>
+      `).join('')}</div>
+      <div class="bg-sky-50 rounded-xl p-3 text-sm text-slate-600"><strong class="text-navy-700">เฉลย:</strong> ${q.exp}</div>
+    </div>`;
+  }).join('');
+  rev.classList.remove('hidden');
+}
+
+function restartQuiz() { navigateTo('quiz', currentExamId); }
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  const hist = document.getElementById('dashHistory');
+  hist.innerHTML = HISTORY.map(h => `
+    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+      <div><div class="text-sm font-medium">${h.name}</div><div class="text-xs text-slate-400">${h.cat} • ${h.date}</div></div>
+      <div class="text-right"><div class="text-lg font-bold ${h.score>=60?'text-emerald-600':'text-red-500'}">${h.score}%</div></div>
+    </div>
+  `).join('');
+}
+
+// ===== UTILS =====
+function formatTime(s) { const m = Math.floor(s/60); const sec = s%60; return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0'); }
+
+// ===== ELEMENT SDK =====
+const defaultConfig = {
+  hero_title: 'เตรียมสอบราชการ\nอย่างมั่นใจ',
+  hero_subtitle: 'รวมแนวข้อสอบราชการกว่า 10,000 ข้อ พร้อมเฉลยละเอียด อัพเดตตามหลักสูตรล่าสุด',
+  cta_button_text: 'เริ่มทำข้อสอบเลย',
+  background_color: '#f8fafc',
+  surface_color: '#ffffff',
+  text_color: '#1e293b',
+  primary_action_color: '#1e3a8a',
+  secondary_action_color: '#38bdf8',
+  font_family: 'IBM Plex Sans Thai',
+  font_size: 16,
+};
+
+function applyConfig(config) {
+  const c = {...defaultConfig, ...config};
+  // Text
+  const ht = document.getElementById('heroTitle');
+  if (ht) ht.innerHTML = (c.hero_title||defaultConfig.hero_title).replace(/\n/g,'<br>');
+  const hs = document.getElementById('heroSubtitle');
+  if (hs) hs.textContent = c.hero_subtitle || defaultConfig.hero_subtitle;
+  const cb = document.getElementById('ctaBtn');
+  if (cb) cb.querySelector('span').innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i> ${c.cta_button_text||defaultConfig.cta_button_text}`;
+  // Colors
+  document.body.style.backgroundColor = c.background_color;
+  document.querySelectorAll('.bg-white').forEach(el => el.style.backgroundColor = c.surface_color);
+  document.body.style.color = c.text_color;
+  // Font
+  const font = c.font_family || defaultConfig.font_family;
+  document.body.style.fontFamily = `${font}, sans-serif`;
+  // Size
+  const size = c.font_size || defaultConfig.font_size;
+  document.body.style.fontSize = size + 'px';
+  
+  setTimeout(() => lucide.createIcons(), 50);
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_title', config.hero_title || defaultConfig.hero_title],
+      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['cta_button_text', config.cta_button_text || defaultConfig.cta_button_text],
+    ]),
+  });
+}
+
+// ===== INIT =====
+renderHome();
+renderDashboard();
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9edaf44a9479f87a',t:'MTc3NjQyMzkyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
